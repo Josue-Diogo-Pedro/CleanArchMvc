@@ -10,10 +10,10 @@ public sealed class Category
 
     public Category(string name) => ValidateDomain(name);
 
-    public Category(int categoryId, string? name)
+    public Category(int categoryId, string name)
     {
-        CategoryId = categoryId;
-        Name = name;
+        DomainExceptionValidation.When(categoryId < 0, "Invalid Id value");
+        ValidateDomain(name);
     }
 
     private void ValidateDomain(string name)
