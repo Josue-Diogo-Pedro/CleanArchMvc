@@ -2,9 +2,8 @@
 
 namespace CleanArchMvc.Domain.Entities;
 
-public sealed class Category
+public sealed class Category : Entity
 {
-    public int CategoryId { get; private set; }
     public string? Name { get; private set; }
     public ICollection<Product> Products { get; set; }
 
@@ -12,10 +11,10 @@ public sealed class Category
 
     public void Update(string name) => ValidateDomain(name);
 
-    public Category(int categoryId, string name)
+    public Category(int id, string name)
     {
-        DomainExceptionValidation.When(categoryId < 0, "Invalid Id value");
-        CategoryId = categoryId;
+        DomainExceptionValidation.When(id < 0, "Invalid Id value");
+        Id = id;
         ValidateDomain(name);
     }
     

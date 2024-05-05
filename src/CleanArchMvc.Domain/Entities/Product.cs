@@ -2,9 +2,8 @@
 
 namespace CleanArchMvc.Domain.Entities;
 
-public sealed class Product
+public sealed class Product : Entity
 {
-    public int ProductId { get; private set; }
     public string? Name { get; private set; }
     public string? Description { get; private set; }
     public decimal Price { get; private set; }
@@ -17,10 +16,10 @@ public sealed class Product
     public Product(string name, string description, decimal price, int stock, string image) =>
         ValidateDomain(name, description, price, stock, image);
 
-    public Product(int productId, string name, string description, decimal price, int stock, string image)
+    public Product(int id, string name, string description, decimal price, int stock, string image)
     {
-        DomainExceptionValidation.When(productId < 0, "Invalid ProductId value");
-        ProductId = productId;
+        DomainExceptionValidation.When(id < 0, "Invalid ProductId value");
+        Id = id;
         ValidateDomain(name, description, price, stock, image);
     }
 
