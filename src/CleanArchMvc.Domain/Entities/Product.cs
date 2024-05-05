@@ -9,6 +9,11 @@ public sealed class Product
     public int Stock { get; set; }
     public string? Image { get; private set; }
 
-    public int CategoryId { get; private set; }
-    public Category? Category { get; private set; }
+    public int CategoryId { get; set; }
+    public Category? Category { get; set; }
+
+    private void ValidateDomain()
+    {
+
+    }
 }
