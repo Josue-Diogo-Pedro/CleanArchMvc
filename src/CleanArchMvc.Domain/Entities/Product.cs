@@ -1,4 +1,6 @@
-﻿namespace CleanArchMvc.Domain.Entities;
+﻿using CleanArchMvc.Domain.Validation;
+
+namespace CleanArchMvc.Domain.Entities;
 
 public sealed class Product
 {
@@ -12,8 +14,26 @@ public sealed class Product
     public int CategoryId { get; set; }
     public Category? Category { get; set; }
 
-    private void ValidateDomain()
+    private void ValidateDomain(string name, string desctiption, decimal price, int stock, string image)
     {
+        DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name. Name is required");
 
+        DomainExceptionValidation.When(name.Length < 3, "Invalid name, too short, minimum 3 characters");
+
+        DomainExceptionValidation.When(string.IsNullOrEmpty(desctiption), "Invalid description. Description is required");
+
+        DomainExceptionValidation.When(desctiption.Length < 5, "Invalid description, too short, minimum 5 characters");
+
+        DomainExceptionValidation.When(price < 0, "Invalid price value");
+
+        DomainExceptionValidation.When(stock < 0, "Invalid stock value");
+
+        DomainExceptionValidation.When(image.Length > 250, "Invalid image name, too long, maximum 250 characters");
+
+        Name = name;
+        Description = desctiption;
+        Price = price;
+        Stock = stock;
+        Image = image;
     }
 }
