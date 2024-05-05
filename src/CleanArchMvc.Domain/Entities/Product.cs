@@ -14,6 +14,16 @@ public sealed class Product
     public int CategoryId { get; set; }
     public Category? Category { get; set; }
 
+    public Product(string name, string description, decimal price, int stock, string image) =>
+        ValidateDomain(name, description, price, stock, image);
+
+    public Product(int productId, string name, string description, decimal price, int stock, string image)
+    {
+        DomainExceptionValidation.When(productId < 0, "Invalid ProductId value");
+        ProductId = productId;
+        ValidateDomain(name, description, price, stock, image);
+    }
+
     private void ValidateDomain(string name, string desctiption, decimal price, int stock, string image)
     {
         DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name. Name is required");
