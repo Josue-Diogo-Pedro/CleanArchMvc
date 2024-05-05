@@ -24,6 +24,12 @@ public sealed class Product
         ValidateDomain(name, description, price, stock, image);
     }
 
+    public void Update(string name, string description, decimal price, int stock, string image, int categoryId)
+    {
+        ValidateDomain(name, description, price, stock, image);
+        CategoryId = categoryId;
+    }
+
     private void ValidateDomain(string name, string desctiption, decimal price, int stock, string image)
     {
         DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name. Name is required");
