@@ -22,4 +22,13 @@ public class ProductUnitTest1
             .Throw<DomainExceptionValidation>()
             .WithMessage("Invalid ProductId value");
     }
+
+    [Fact(DisplayName = "Create product with short name value")]
+    public void CreateProduct_WithShortNameValue_DomainExceptionShortName()
+    {
+        Action action = () => new Product(1, "Pr", "Product Description", 9.99m, 99, "Product Image");
+        action.Should()
+            .Throw<DomainExceptionValidation>()
+            .WithMessage("Invalid name, too short, minimum 3 characters");
+    }
 }
