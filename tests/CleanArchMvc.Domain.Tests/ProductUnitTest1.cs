@@ -40,4 +40,12 @@ public class ProductUnitTest1
             .Throw<DomainExceptionValidation>()
             .WithMessage("Invalid image name, too long, maximum 250 characters");
     }
+
+    [Fact(DisplayName = "Create product with null image name")]
+    public void CreateProduct_WithNullImageName_NoDomainException()
+    {
+        Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, null);
+        action.Should()
+            .NotThrow<DomainExceptionValidation>();
+    }
 }
