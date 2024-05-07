@@ -14,12 +14,21 @@ public class CategoryUnitTest1
             .NotThrow<DomainExceptionValidation>();
     }
 
-    [Fact]
+    [Fact(DisplayName = "Create category with negative id value")]
     public void CreateCategory_NegativeIdValue_DomainExceptionValidation()
     {
         Action action = () => new Category(-1, "Category Name");
         action.Should()
             .Throw<DomainExceptionValidation>()
             .WithMessage("Invalid Id value");
+    }
+
+    [Fact(DisplayName = "Create category with short name value")]
+    public void CreateCategory_ShortNameValue_DomainExceptionShortName()
+    {
+        Action action = () => new Category(1, "ca");
+        action.Should()
+            .Throw<DomainExceptionValidation>()
+            .WithMessage("Invalid name, too short, minimum 3 characters");
     }
 }
