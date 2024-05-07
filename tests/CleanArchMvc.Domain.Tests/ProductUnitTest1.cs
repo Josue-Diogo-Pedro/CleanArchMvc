@@ -48,4 +48,22 @@ public class ProductUnitTest1
         action.Should()
             .NotThrow<DomainExceptionValidation>();
     }
+
+    [Fact(DisplayName = "Create product with empty image name")]
+    public void CreateProduct_WithEmptyImageName_NoDomainException()
+    {
+        Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "");
+        action.Should()
+            .NotThrow<DomainExceptionValidation>();
+    }
+
+    [Theory(DisplayName = "Create product with invalid stock value")]
+    [InlineData(-5)]
+    public void CreateProduct_WithInvalidStockValue_DomainExceptionNegativeValue(int value)
+    {
+        Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, value, "Image name");
+        action.Should()
+            .Throw<DomainExceptionValidation>()
+            .WithMessage("Invalid stock value");
+    }
 }
