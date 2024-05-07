@@ -31,4 +31,13 @@ public class ProductUnitTest1
             .Throw<DomainExceptionValidation>()
             .WithMessage("Invalid name, too short, minimum 3 characters");
     }
+
+    [Fact(DisplayName = "Create product with long image name")]
+    public void CreateProduct_WithLongImageName_DomainExceptionLongImageName()
+    {
+        Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "Product Image toooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong");
+        action.Should()
+            .Throw<DomainExceptionValidation>()
+            .WithMessage("Invalid image name, too long, maximum 250 characters");
+    }
 }
