@@ -13,4 +13,13 @@ public class ProductUnitTest1
         action.Should()
             .NotThrow<DomainExceptionValidation>();
     }
+
+    [Fact(DisplayName = "Create product with negative id value")]
+    public void CreateProduct_WithNegativeIdValue_DomainExceptionInvalidId()
+    {
+        Action action = () => new Product(-1, "Product Name", "Product Description", 9.99m, 99, "Product Image");
+        action.Should()
+            .Throw<DomainExceptionValidation>()
+            .WithMessage("Invalid ProductId value");
+    }
 }
