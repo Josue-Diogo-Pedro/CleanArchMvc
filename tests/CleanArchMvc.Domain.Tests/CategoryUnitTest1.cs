@@ -40,4 +40,12 @@ public class CategoryUnitTest1
             .Throw<DomainExceptionValidation>()
             .WithMessage("Invalid name. Name is required");
     }
+
+    [Fact(DisplayName = "Create category with null name value")]
+    public void CreateCategory_WithNullNameValue_DomainExceptionInvalidName()
+    {
+        Action action = () => new Category(1, null);
+        action.Should()
+            .Throw<DomainExceptionValidation>();
+    }
 }
