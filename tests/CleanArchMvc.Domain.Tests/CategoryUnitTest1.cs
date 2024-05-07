@@ -13,4 +13,13 @@ public class CategoryUnitTest1
         action.Should()
             .NotThrow<DomainExceptionValidation>();
     }
+
+    [Fact]
+    public void CreateCategory_NegativeIdValue_DomainExceptionValidation()
+    {
+        Action action = () => new Category(-1, "Category Name");
+        action.Should()
+            .Throw<DomainExceptionValidation>()
+            .WithMessage("Invalid Id value");
+    }
 }
