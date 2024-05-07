@@ -31,4 +31,13 @@ public class CategoryUnitTest1
             .Throw<DomainExceptionValidation>()
             .WithMessage("Invalid name, too short, minimum 3 characters");
     }
+
+    [Fact(DisplayName = "Create category missing name value")]
+    public void CreateCategory_MissingNameValue_DomainExceptionRequiredName()
+    {
+        Action action = () => new Category(1, "");
+        action.Should()
+            .Throw<DomainExceptionValidation>()
+            .WithMessage("Invalid name. Name is required");
+    }
 }
