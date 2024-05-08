@@ -15,4 +15,9 @@
     <ProjectReference Include="..\CleanArchMvc.Domain\CleanArchMvc.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AutoMapper\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
