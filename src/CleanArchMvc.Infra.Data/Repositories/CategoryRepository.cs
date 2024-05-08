@@ -21,22 +21,29 @@ public class CategoryRepository : ICategoryRepository
                                                                 .DefaultIfEmpty()?
                                                                 .SingleOrDefaultAsync(category => category.Id == id);
     
-    public Task<Category> CreateAsync(Category category)
+    public async Task<Category> CreateAsync(Category category)
     {
-        throw new NotImplementedException();
-    }
-    public Task<Category> UpdateAsync(Category category)
-    {
-        throw new NotImplementedException();
-    }
+        await _context.Categories.AddAsync(category);
+        await SaveChangesAsync();
 
-
-
-    public Task<Category> RemoveAsync(Category category)
-    {
-        throw new NotImplementedException();
+        return category;
     }
 
+    public async Task<Category> UpdateAsync(Category category)
+    {
+        _context.Categories.Update(category);
+        await SaveChangesAsync();
+
+        return category;
+    }
+
+    public async Task<Category> RemoveAsync(Category category)
+    {
+        _context.Categories.Remove(category);
+        await SaveChangesAsync();
+
+        return category;
+    }
 
     private async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 }
