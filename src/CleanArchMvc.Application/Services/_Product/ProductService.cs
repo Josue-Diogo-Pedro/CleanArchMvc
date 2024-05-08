@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchMvc.Application.DTOs;
+using CleanArchMvc.Domain.Entities;
 using CleanArchMvc.Domain.Interfaces;
 
 namespace CleanArchMvc.Application.Services._Product;
@@ -33,19 +34,22 @@ public class ProductService : IProductService
         return _mapper.Map<ProductDTO>(product);
     }
 
-    public Task<ProductDTO> CreateAsync(ProductDTO product)
+    public async Task<ProductDTO> CreateAsync(ProductDTO product)
     {
-        throw new NotImplementedException();
+        var productResult = await _productRepository.CreateAsync(_mapper.Map<Product>(product));
+        return _mapper.Map<ProductDTO>(productResult);
     }
 
-    public Task<ProductDTO> UpdateAsync(ProductDTO product)
+    public async Task<ProductDTO> UpdateAsync(ProductDTO product)
     {
-        throw new NotImplementedException();
+        var productResult = await _productRepository.UpdateAsync(_mapper.Map<Product>(product));
+        return _mapper.Map<ProductDTO>(productResult);
     }
 
-    public Task<ProductDTO> RemoveAsync(ProductDTO product)
+    public async Task<ProductDTO> RemoveAsync(ProductDTO product)
     {
-        throw new NotImplementedException();
+        var productResult = await _productRepository.RemoveAsync(_mapper.Map<Product>(product));
+        return _mapper.Map<ProductDTO>(productResult);
     }
 
 }
