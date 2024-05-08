@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CleanArchMvc.Application.DTOs;
+using CleanArchMvc.Domain.Entities;
 
-namespace CleanArchMvc.Application.Services._Product
+namespace CleanArchMvc.Application.Services._Product;
+
+public interface IProductService
 {
-    internal class IProductService
-    {
-    }
+    Task<IEnumerable<ProductDTO>> GetProductsAsync();
+    Task<ProductDTO> GetByIdAsync(int? id);
+
+    Task<ProductDTO> GetProductCategoryAsync(int? id);
+
+    Task<ProductDTO> CreateAsync(ProductDTO product);
+
+    Task<ProductDTO> UpdateAsync(ProductDTO product);
+    Task<ProductDTO> RemoveAsync(ProductDTO product);
 }
