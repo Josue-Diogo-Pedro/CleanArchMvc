@@ -11,27 +11,22 @@ public class ProductRepository : IProductRepository
 
     public ProductRepository(ApplicationDbContext context) => _context = context;
 
-    public Task<Product> CreateAsync(Product product)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<Product>> GetProductsAsync() => await _context.Products?
+                                                                        .AsNoTracking()?
+                                                                        .DefaultIfEmpty()?
+                                                                        .ToListAsync();
+
+    public async Task<Product> GetProductCategoryAsync(int? id) => await _context.Products?
+                                                                            .AsNoTracking()?
+                                                                            .DefaultIfEmpty()?
+                                                                            .Include(category => category.Category)?
+                                                                            .SingleOrDefaultAsync(product => product.Id == id);
 
     public Task<Product> GetByIdAsync(int? id)
     {
         throw new NotImplementedException();
     }
-
-    public Task<IEnumerable<Product>> GetProductCategoryAsync(int? id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<Product>> GetProductsAsync()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Product> RemoveAsync(Product product)
+    public Task<Product> CreateAsync(Product product)
     {
         throw new NotImplementedException();
     }
@@ -40,7 +35,11 @@ public class ProductRepository : IProductRepository
     {
         throw new NotImplementedException();
     }
+    public Task<Product> RemoveAsync(Product product)
+    {
+        throw new NotImplementedException();
+    }
 
-
+    private async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 
 }
