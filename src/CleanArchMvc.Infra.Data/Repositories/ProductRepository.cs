@@ -22,22 +22,33 @@ public class ProductRepository : IProductRepository
                                                                             .Include(category => category.Category)?
                                                                             .SingleOrDefaultAsync(product => product.Id == id);
 
-    public Task<Product> GetByIdAsync(int? id)
+    public async Task<Product> GetByIdAsync(int? id) => await _context.Products?
+                                                                .AsNoTracking()?
+                                                                .DefaultIfEmpty()?
+                                                                .SingleOrDefaultAsync(product => product.Id == id);
+
+    public async Task<Product> CreateAsync(Product product)
     {
-        throw new NotImplementedException();
-    }
-    public Task<Product> CreateAsync(Product product)
-    {
-        throw new NotImplementedException();
+        await _context.Products.AddAsync(product);
+        await SaveChangesAsync();
+
+        return product;
     }
 
-    public Task<Product> UpdateAsync(Product product)
+    public async Task<Product> UpdateAsync(Product product)
     {
-        throw new NotImplementedException();
+        _context.Products.Update(product);
+        await SaveChangesAsync();
+
+        return product;
     }
-    public Task<Product> RemoveAsync(Product product)
+
+    public async Task<Product> RemoveAsync(Product product)
     {
-        throw new NotImplementedException();
+        _context.Products.Remove(product);
+        await SaveChangesAsync();
+
+        return product;
     }
 
     private async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
