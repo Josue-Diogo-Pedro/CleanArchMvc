@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchMvc.Application.DTOs;
+using CleanArchMvc.Domain.Entities;
 using CleanArchMvc.Domain.Interfaces;
 
 namespace CleanArchMvc.Application.Services._Category;
@@ -11,7 +12,7 @@ public class CategoryService : ICategoryService
 
 	public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
 	{
-        _categoryRepository = categoryRepository;
+		_categoryRepository = categoryRepository;
 		_mapper = mapper;
 	}
 
@@ -29,17 +30,20 @@ public class CategoryService : ICategoryService
 
 	public async Task<CategoryDTO> CreateAsync(CategoryDTO category)
 	{
-		
+		var categoryResult = await _categoryRepository.CreateAsync(_mapper.Map<Category>(category));
+		return _mapper.Map<CategoryDTO>(categoryResult);
 	}
 
-	public Task<CategoryDTO> UpdateAsync(CategoryDTO category)
+	public async Task<CategoryDTO> UpdateAsync(CategoryDTO category)
 	{
-		throw new NotImplementedException();
+		var categoryResult = await _categoryRepository.UpdateAsync(_mapper.Map<Category>(category));
+		return _mapper.Map<CategoryDTO>(categoryResult);
 	}
 
-	public Task<CategoryDTO> RemoveAsync(CategoryDTO category)
+	public async Task<CategoryDTO> RemoveAsync(CategoryDTO category)
 	{
-		throw new NotImplementedException();
+		var categoryResult = await _categoryRepository.RemoveAsync(_mapper.Map<Category>(category));
+		return _mapper.Map<CategoryDTO>(categoryResult);
 	}
 
 }
