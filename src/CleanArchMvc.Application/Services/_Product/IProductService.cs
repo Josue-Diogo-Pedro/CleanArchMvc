@@ -1,5 +1,4 @@
 ﻿using CleanArchMvc.Application.DTOs;
-using CleanArchMvc.Domain.Entities;
 
 namespace CleanArchMvc.Application.Services._Product;
 
@@ -10,8 +9,7 @@ public interface IProductService
 
     Task<ProductDTO> GetProductCategoryAsync(int? id);
 
-    Task<ProductDTO> CreateAsync(ProductDTO product);
-
-    Task<ProductDTO> UpdateAsync(ProductDTO product);
-    Task<ProductDTO> RemoveAsync(ProductDTO product);
+    Task CreateAsync(ProductDTO product);
+    Task UpdateAsync(ProductDTO product);
+    Task RemoveAsync(int? productId);
 }
