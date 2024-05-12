@@ -35,14 +35,18 @@ public class ProductService : IProductService
         if (productByIdQuery is null)
             throw new Exception("Entity cold not be found");
 
-        return _mapper.Map<ProductDTO>(await _mediator.Send(productByIdQuery);
+        return _mapper.Map<ProductDTO>(await _mediator.Send(productByIdQuery));
     }
 
-    //public async Task<ProductDTO> GetByIdAsync(int? id)
-    //{
-    //    var product = await _productRepository.GetByIdAsync(id);
-    //    return _mapper.Map<ProductDTO>(product);
-    //}
+    public async Task<ProductDTO> GetByIdAsync(int? id)
+    {
+        GetProductByIdQuery productByIdQuery = new(id.Value);
+
+        if (productByIdQuery is null)
+            throw new Exception("Entity cold not be found");
+
+        return _mapper.Map<ProductDTO>(await _mediator.Send(productByIdQuery));
+    }
 
     //public async Task CreateAsync(ProductDTO product) => 
     //    await _productRepository.CreateAsync(_mapper.Map<Product>(product));
