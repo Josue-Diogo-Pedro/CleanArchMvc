@@ -9,5 +9,6 @@ public class CategoriesController : Controller
 
     public CategoriesController(ICategoryService categoryService) => _categoryService = categoryService;
 
+    [HttpGet]
     public async Task<ActionResult> Index() => View(await _categoryService.GetCategoriesAsync());
 }
