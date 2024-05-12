@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchMvc.Application.DTOs;
+using CleanArchMvc.Application.Products.Commands;
 using CleanArchMvc.Application.Products.Queries;
 using CleanArchMvc.Domain.Entities;
 using CleanArchMvc.Domain.Interfaces;
@@ -48,8 +49,13 @@ public class ProductService : IProductService
         return _mapper.Map<ProductDTO>(await _mediator.Send(productByIdQuery));
     }
 
-    //public async Task CreateAsync(ProductDTO product) => 
-    //    await _productRepository.CreateAsync(_mapper.Map<Product>(product));
+    public async Task CreateAsync(ProductDTO product)
+    {
+        ProductCreateCommnad productCreateCommnad = new();
+
+        if (productCreateCommnad is null)
+            throw new Exception("Entity cold not be created");
+    }
 
     //public async Task UpdateAsync(ProductDTO product) => 
     //    await _productRepository.UpdateAsync(_mapper.Map<Product>(product));

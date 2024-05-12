@@ -9,7 +9,7 @@ public interface IProductService
 
     Task<ProductDTO> GetProductCategoryAsync(int? id);
 
-    //Task CreateAsync(ProductDTO product);
+    Task CreateAsync(ProductDTO product);
     //Task UpdateAsync(ProductDTO product);
     //Task RemoveAsync(int? productId);
 }
