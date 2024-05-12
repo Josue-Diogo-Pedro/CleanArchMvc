@@ -28,6 +28,7 @@ public static class DependencyInjection
         var mappingConfig = new MapperConfiguration(options =>
         {
             options.AddProfile(new MappingProfile());
+            options.AddProfile(new DtoToCommandMappingProfile());
         });
 
         IMapper mapper = mappingConfig.CreateMapper();
