@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CleanArchMvc.Application.DTOs;
 using CleanArchMvc.Application.Products.Queries;
+using CleanArchMvc.Domain.Entities;
 using CleanArchMvc.Domain.Interfaces;
 using MediatR;
 
@@ -24,8 +25,7 @@ public class ProductService : IProductService
         if (productsQuery is null)
             throw new Exception("Entity cold not be loaded.");
 
-        var result = await _mediator.Send(productsQuery);
-        return _mapper.Map<IEnumerable<ProductDTO>>(result);
+        return _mapper.Map<IEnumerable<ProductDTO>>(await _mediator.Send(productsQuery));
     }
 
     //public async Task<ProductDTO> GetProductCategoryAsync(int? id)

@@ -41,6 +41,12 @@ public static class DependencyInjection
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<IProductService, ProductService>();
 
+        //Mediatr services register
+        var myhandlers = AppDomain.CurrentDomain.Load("CleanArchMvc.Application");
+        MediatRServiceConfiguration mediatrConfig = new();
+        mediatrConfig.RegisterServicesFromAssembly(myhandlers);
+        services.AddMediatR(mediatrConfig);
+
         return services;
     }
 }
