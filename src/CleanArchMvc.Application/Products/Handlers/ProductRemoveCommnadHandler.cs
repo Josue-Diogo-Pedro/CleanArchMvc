@@ -11,8 +11,13 @@ public class ProductRemoveCommnadHandler : IRequestHandler<ProductRemoveCommand,
 
     public ProductRemoveCommnadHandler(IProductRepository productRepository) => _productRepository = productRepository;
 
-    public Task<Product> Handle(ProductRemoveCommand request, CancellationToken cancellationToken)
+    public async Task<Product> Handle(ProductRemoveCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var product = await _productRepository.GetByIdAsync(request.Id);
+
+        if (product is null)
+            throw new ApplicationException("Error, cold not be found");
+        else
+            return await _productRepository.RemoveAsync(product);
     }
 }
