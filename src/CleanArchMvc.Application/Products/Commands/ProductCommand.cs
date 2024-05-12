@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CleanArchMvc.Domain.Entities;
+using MediatR;
 
-namespace CleanArchMvc.Application.Products.Commands
+namespace CleanArchMvc.Application.Products.Commands;
+
+public abstract class ProductCommand : IRequest<Product>
 {
-    internal class ProductCommand
-    {
-    }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public decimal? Price { get; set; }
+    public int Stock { get; set; }
+    public string? Image { get; set; }
+    public int CategoryId { get; set; }
 }
