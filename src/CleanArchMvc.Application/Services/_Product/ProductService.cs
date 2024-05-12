@@ -49,13 +49,8 @@ public class ProductService : IProductService
         return _mapper.Map<ProductDTO>(await _mediator.Send(productByIdQuery));
     }
 
-    public async Task CreateAsync(ProductDTO product)
-    {
-        ProductCreateCommnad productCreateCommnad = new();
-
-        if (productCreateCommnad is null)
-            throw new Exception("Entity cold not be created");
-    }
+    public async Task CreateAsync(ProductDTO product) => 
+        await _mediator.Send(_mapper.Map<ProductCreateCommnad>(product));
 
     //public async Task UpdateAsync(ProductDTO product) => 
     //    await _productRepository.UpdateAsync(_mapper.Map<Product>(product));
