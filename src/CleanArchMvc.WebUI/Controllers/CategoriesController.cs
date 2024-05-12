@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CleanArchMvc.Application.Services._Category;
+using Microsoft.AspNetCore.Mvc;
 
-namespace CleanArchMvc.WebUI.Controllers
+namespace CleanArchMvc.WebUI.Controllers;
+
+public class CategoriesController : Controller
 {
-    public class CategoriesController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
+    private readonly ICategoryService _categoryService;
+
+    public CategoriesController(ICategoryService categoryService) => _categoryService = categoryService;
+
+    public async Task<ActionResult> Index() => View(await _categoryService.GetCategoriesAsync());
 }
