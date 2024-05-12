@@ -52,8 +52,8 @@ public class ProductService : IProductService
     public async Task CreateAsync(ProductDTO product) => 
         await _mediator.Send(_mapper.Map<ProductCreateCommnad>(product));
 
-    //public async Task UpdateAsync(ProductDTO product) => 
-    //    await _productRepository.UpdateAsync(_mapper.Map<Product>(product));
+    public async Task UpdateAsync(ProductDTO product) =>
+        await _mediator.Send(_mapper.Map<ProductUpdateCommnad>(product));
 
     //public async Task RemoveAsync(int? productId) => 
     //    await _productRepository.RemoveAsync(await _productRepository.GetByIdAsync(productId));
