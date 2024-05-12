@@ -20,7 +20,7 @@ public class ProductService : IProductService
 
     public async Task<IEnumerable<ProductDTO>> GetProductsAsync()
     {
-        var productsQuery = new GetProductsQuery();
+        GetProductsQuery productsQuery = new();
 
         if (productsQuery is null)
             throw new Exception("Entity cold not be loaded.");
@@ -28,11 +28,15 @@ public class ProductService : IProductService
         return _mapper.Map<IEnumerable<ProductDTO>>(await _mediator.Send(productsQuery));
     }
 
-    //public async Task<ProductDTO> GetProductCategoryAsync(int? id)
-    //{
-    //    var product = await _productRepository.GetProductCategoryAsync(id);
-    //    return _mapper.Map<ProductDTO>(product);
-    //}
+    public async Task<ProductDTO> GetProductCategoryAsync(int? id)
+    {
+        GetProductByIdQuery productByIdQuery = new(id.Value);
+
+        if (productByIdQuery is null)
+            throw new Exception("Entity cold not be found");
+
+        return _mapper.Map<ProductDTO>(await _mediator.Send(productByIdQuery);
+    }
 
     //public async Task<ProductDTO> GetByIdAsync(int? id)
     //{
