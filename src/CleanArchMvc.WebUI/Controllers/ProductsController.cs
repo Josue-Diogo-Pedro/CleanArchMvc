@@ -11,4 +11,7 @@ public class ProductsController : Controller
 
     [HttpGet]
     public async Task<ActionResult> Index() => View(await _productService.GetProductsAsync());
+
+    [HttpGet]
+    public IActionResult Create() => View();
 }
