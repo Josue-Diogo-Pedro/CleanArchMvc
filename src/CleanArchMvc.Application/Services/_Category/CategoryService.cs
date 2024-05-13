@@ -20,14 +20,20 @@ public class CategoryService : ICategoryService
 	public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync()
 	{
 		GetCategoriesQuery categoriesQuery = new();
+		if (categoriesQuery is null)
+			throw new Exception("Entity cold not be loaded");
 
 		return _mapper.Map<IEnumerable<CategoryDTO>>(await _mediator.Send(categoriesQuery));
 	}
 
 	public async Task<CategoryDTO> GetByIdAsync(int? id)
 	{
-		var category = await _categoryRepository.GetByIdAsync(id);
-		return _mapper.Map<CategoryDTO>(category);
+		GetCategoryByIdQuery categoryByIdQuery = new(id.Value);
+
+		if (categoryByIdQuery is null)
+			throw new Exception("Entity cold not be loaded");
+
+		return _mapper.Map<CategoryDTO>(await _mediator.Send(categoryByIdQuery));
 	}
 
 	public async Task CreateAsync(CategoryDTO category) =>
