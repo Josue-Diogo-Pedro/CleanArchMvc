@@ -25,4 +25,16 @@ public class CategoriesController : Controller
         await _categoryService.CreateAsync(category);
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public async Task<ActionResult> Edit(int? id)
+    {
+        if (id is null) return NotFound();
+
+        var categoryVM = await _categoryService.GetByIdAsync(id);
+
+        if (categoryVM is null) return NotFound();
+
+        return View(categoryVM);
+    }
 }
