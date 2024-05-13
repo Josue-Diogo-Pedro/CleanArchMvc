@@ -58,4 +58,11 @@ public class CategoriesController : Controller
 
         return View(category);
     }
+
+    [HttpPost, ActionName("Delete")]
+    public async Task<ActionResult> DeleteConfirmed(int id)
+    {
+        await _categoryService.RemoveAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
 }
