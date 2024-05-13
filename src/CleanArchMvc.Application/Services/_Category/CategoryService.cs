@@ -43,7 +43,15 @@ public class CategoryService : ICategoryService
 	public async Task UpdateAsync(CategoryDTO category) =>
 		await _mediator.Send(_mapper.Map<CategoryUpdateCommand>(category));
 
-	public async Task RemoveAsync(int? categoryId) =>
-		await _categoryRepository.RemoveAsync(await _categoryRepository.GetByIdAsync(categoryId));
+	public async Task RemoveAsync(int? categoryId)
+	{
+		CategoryRemoveCommand categoryRemoveCommand = new(categoryId.Value);
+
+		if (categoryRemoveCommand is null)
+			throw new Exception("Entity cold not be loaded");
+
+		await _mediator.Send(categoryRemoveCommand);
+
+	}
 
 }
