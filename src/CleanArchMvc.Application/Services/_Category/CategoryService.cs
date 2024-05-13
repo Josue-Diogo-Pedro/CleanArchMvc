@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CleanArchMvc.Application.Categories.Commnads;
 using CleanArchMvc.Application.Categories.Queries;
 using CleanArchMvc.Application.DTOs;
 using CleanArchMvc.Domain.Entities;
@@ -37,10 +38,10 @@ public class CategoryService : ICategoryService
 	}
 
 	public async Task CreateAsync(CategoryDTO category) =>
-		await _mediator.Send(_mapper.Map<Category>(category));
+		await _mediator.Send(_mapper.Map<CategoryCreateCommand>(category));
 
 	public async Task UpdateAsync(CategoryDTO category) =>
-		await _categoryRepository.UpdateAsync(_mapper.Map<Category>(category));
+		await _mediator.Send(_mapper.Map<CategoryUpdateCommand>(category));
 
 	public async Task RemoveAsync(int? categoryId) =>
 		await _categoryRepository.RemoveAsync(await _categoryRepository.GetByIdAsync(categoryId));
