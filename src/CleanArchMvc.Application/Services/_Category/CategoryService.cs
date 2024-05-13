@@ -37,7 +37,7 @@ public class CategoryService : ICategoryService
 	}
 
 	public async Task CreateAsync(CategoryDTO category) =>
-		await _categoryRepository.CreateAsync(_mapper.Map<Category>(category));
+		await _mediator.Send(_mapper.Map<Category>(category));
 
 	public async Task UpdateAsync(CategoryDTO category) =>
 		await _categoryRepository.UpdateAsync(_mapper.Map<Category>(category));
