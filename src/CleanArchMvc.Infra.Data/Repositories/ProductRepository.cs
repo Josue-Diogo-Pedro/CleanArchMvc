@@ -15,17 +15,21 @@ public class ProductRepository : IProductRepository
                                                                         .AsNoTracking()?
                                                                         .DefaultIfEmpty()?
                                                                         .ToListAsync();
+    #region Legacy
 
-    public async Task<Product> GetProductCategoryAsync(int? id) => await _context.Products?
+    //public async Task<Product> GetProductCategoryAsync(int? id) => await _context.Products?
+    //                                                                        .AsNoTracking()?
+    //                                                                        .DefaultIfEmpty()?
+    //                                                                        .Include(category => category.Category)?
+    //                                                                        .SingleOrDefaultAsync(product => product.Id == id);
+    
+    #endregion
+
+    public async Task<Product> GetByIdAsync(int? id) => await _context.Products?
                                                                             .AsNoTracking()?
                                                                             .DefaultIfEmpty()?
                                                                             .Include(category => category.Category)?
                                                                             .SingleOrDefaultAsync(product => product.Id == id);
-
-    public async Task<Product> GetByIdAsync(int? id) => await _context.Products?
-                                                                .AsNoTracking()?
-                                                                .DefaultIfEmpty()?
-                                                                .SingleOrDefaultAsync(product => product.Id == id);
 
     public async Task<Product> CreateAsync(Product product)
     {

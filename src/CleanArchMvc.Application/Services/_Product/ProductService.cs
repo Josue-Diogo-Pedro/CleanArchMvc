@@ -2,8 +2,6 @@
 using CleanArchMvc.Application.DTOs;
 using CleanArchMvc.Application.Products.Commands;
 using CleanArchMvc.Application.Products.Queries;
-using CleanArchMvc.Domain.Entities;
-using CleanArchMvc.Domain.Interfaces;
 using MediatR;
 
 namespace CleanArchMvc.Application.Services._Product;
@@ -29,15 +27,19 @@ public class ProductService : IProductService
         return _mapper.Map<IEnumerable<ProductDTO>>(await _mediator.Send(productsQuery));
     }
 
-    public async Task<ProductDTO> GetProductCategoryAsync(int? id)
-    {
-        GetProductByIdQuery productByIdQuery = new(id.Value);
+    #region Legacy
 
-        if (productByIdQuery is null)
-            throw new Exception("Entity cold not be found");
+    //public async Task<ProductDTO> GetProductCategoryAsync(int? id)
+    //{
+    //    GetProductByIdQuery productByIdQuery = new(id.Value);
 
-        return _mapper.Map<ProductDTO>(await _mediator.Send(productByIdQuery));
-    }
+    //    if (productByIdQuery is null)
+    //        throw new Exception("Entity cold not be found");
+
+    //    return _mapper.Map<ProductDTO>(await _mediator.Send(productByIdQuery));
+    //}
+
+    #endregion
 
     public async Task<ProductDTO> GetByIdAsync(int? id)
     {
@@ -49,7 +51,7 @@ public class ProductService : IProductService
         return _mapper.Map<ProductDTO>(await _mediator.Send(productByIdQuery));
     }
 
-    public async Task CreateAsync(ProductDTO product) => 
+    public async Task CreateAsync(ProductDTO product) =>
         await _mediator.Send(_mapper.Map<ProductCreateCommnad>(product));
 
     public async Task UpdateAsync(ProductDTO product) =>
