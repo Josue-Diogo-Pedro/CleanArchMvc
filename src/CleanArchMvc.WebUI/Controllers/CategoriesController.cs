@@ -37,4 +37,13 @@ public class CategoriesController : Controller
 
         return View(categoryVM);
     }
+
+    [HttpPost]
+    public async Task<ActionResult> Edit(CategoryDTO category)
+    {
+        if (!ModelState.IsValid) return View(category);
+
+        await _categoryService.UpdateAsync(category);
+        return RedirectToAction(nameof(Index));
+    }
 }

@@ -5,13 +5,13 @@ using MediatR;
 
 namespace CleanArchMvc.Application.Categories.Handlers;
 
-public class CategoryRemoveCommandHandler : IRequestHandler<CategoryUpdateCommand, Category>
+public class CategoryRemoveCommandHandler : IRequestHandler<CategoryRemoveCommand, Category>
 {
     private readonly ICategoryRepository _categoryRepository;
 
     public CategoryRemoveCommandHandler(ICategoryRepository categoryRepository) => _categoryRepository = categoryRepository;
 
-    public async Task<Category> Handle(CategoryUpdateCommand request, CancellationToken cancellationToken)
+    public async Task<Category> Handle(CategoryRemoveCommand request, CancellationToken cancellationToken)
     {
         var category = await _categoryRepository.GetByIdAsync(request.Id);
 
