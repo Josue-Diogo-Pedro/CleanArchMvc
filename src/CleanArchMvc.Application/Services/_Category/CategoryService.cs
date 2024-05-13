@@ -2,7 +2,6 @@
 using CleanArchMvc.Application.Categories.Commnads;
 using CleanArchMvc.Application.Categories.Queries;
 using CleanArchMvc.Application.DTOs;
-using CleanArchMvc.Domain.Entities;
 using MediatR;
 
 namespace CleanArchMvc.Application.Services._Category;
@@ -51,7 +50,6 @@ public class CategoryService : ICategoryService
 			throw new Exception("Entity cold not be loaded");
 
 		await _mediator.Send(categoryRemoveCommand);
-
 	}
 
 }
