@@ -15,4 +15,9 @@
     <ProjectReference Include="..\CleanArchMvc.Domain\CleanArchMvc.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Categories\Handlers\" />
+    <Folder Include="Categories\Queries\" />
+  </ItemGroup>
+
 </Project>
