@@ -1,6 +1,9 @@
-﻿namespace CleanArchMvc.Application.Categories.Commnads;
+﻿using CleanArchMvc.Domain.Entities;
+using MediatR;
 
-public class CategoryCommand
+namespace CleanArchMvc.Application.Categories.Commnads;
+
+public abstract class CategoryCommand : IRequest<Category>
 {
     public string? Name { get; private set; }
 }
