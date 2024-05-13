@@ -11,4 +11,7 @@ public class CategoriesController : Controller
 
     [HttpGet]
     public async Task<ActionResult> Index() => View(await _categoryService.GetCategoriesAsync());
+
+    [HttpGet]
+    public IActionResult Create() => View();
 }
