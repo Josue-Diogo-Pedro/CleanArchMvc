@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Categories\Handlers\" />
-    <Folder Include="Categories\Queries\" />
   </ItemGroup>
 
 </Project>
