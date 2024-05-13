@@ -1,25 +1,27 @@
 ﻿using AutoMapper;
+using CleanArchMvc.Application.Categories.Queries;
 using CleanArchMvc.Application.DTOs;
 using CleanArchMvc.Domain.Entities;
-using CleanArchMvc.Domain.Interfaces;
+using MediatR;
 
 namespace CleanArchMvc.Application.Services._Category;
 
 public class CategoryService : ICategoryService
 {
-	private readonly ICategoryRepository _categoryRepository;
+	private readonly IMediator _mediator;
 	private readonly IMapper _mapper;
 
-	public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
+	public CategoryService(IMediator mediator, IMapper mapper)
 	{
-		_categoryRepository = categoryRepository;
+		_mediator = mediator;
 		_mapper = mapper;
 	}
 
 	public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync()
 	{
-		var categories = await _categoryRepository.GetCategoriesAsync();
-		return _mapper.Map<IEnumerable<CategoryDTO>>(categories);
+		GetCategoriesQuery categoriesQuery = new();
+
+		return _mapper.Map<IEnumerable<CategoryDTO>>(await _mediator.Send(categoriesQuery));
 	}
 
 	public async Task<CategoryDTO> GetByIdAsync(int? id)
@@ -28,13 +30,13 @@ public class CategoryService : ICategoryService
 		return _mapper.Map<CategoryDTO>(category);
 	}
 
-	public async Task CreateAsync(CategoryDTO category) => 
+	public async Task CreateAsync(CategoryDTO category) =>
 		await _categoryRepository.CreateAsync(_mapper.Map<Category>(category));
 
-	public async Task UpdateAsync(CategoryDTO category) => 
+	public async Task UpdateAsync(CategoryDTO category) =>
 		await _categoryRepository.UpdateAsync(_mapper.Map<Category>(category));
 
-	public async Task RemoveAsync(int? categoryId) => 
+	public async Task RemoveAsync(int? categoryId) =>
 		await _categoryRepository.RemoveAsync(await _categoryRepository.GetByIdAsync(categoryId));
 
 }
