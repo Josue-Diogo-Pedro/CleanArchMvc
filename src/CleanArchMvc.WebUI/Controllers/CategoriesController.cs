@@ -46,4 +46,16 @@ public class CategoriesController : Controller
         await _categoryService.UpdateAsync(category);
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public async Task<ActionResult> Delete(int? id)
+    {
+        if (id is null) return NotFound();
+
+        var category = await _categoryService.GetByIdAsync(id);
+
+        if (category is null) return NotFound();
+
+        return View(category);
+    }
 }
