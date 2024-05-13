@@ -11,5 +11,5 @@ public interface IProductService
 
     Task CreateAsync(ProductDTO product);
     Task UpdateAsync(ProductDTO product);
-    //Task RemoveAsync(int? productId);
+    Task RemoveAsync(int? productId);
 }
