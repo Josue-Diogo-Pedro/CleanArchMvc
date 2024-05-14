@@ -36,4 +36,18 @@ public class ProductsController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public async Task<ActionResult> Edit(int? id)
+    {
+        if (id is null) return NotFound();
+
+        var product = await _productService.GetByIdAsync(id);
+
+        if (product is null) return NotFound();
+
+        ViewBag.CategoryId = new SelectList(await _categoryService.GetCategoriesAsync(), "Id", "Name", product.CategoryId);
+
+        return View(product);
+    }
 }
