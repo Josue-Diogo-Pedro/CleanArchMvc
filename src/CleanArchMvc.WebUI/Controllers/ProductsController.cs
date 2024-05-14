@@ -59,4 +59,16 @@ public class ProductsController : Controller
         await _productService.UpdateAsync(product);
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public async Task<ActionResult> Delete(int? id)
+    {
+        if (id is null) return NotFound();
+
+        var product = await _productService.GetByIdAsync(id);
+
+        if (product is null) return NotFound();
+
+        return View(product);
+    }
 }
