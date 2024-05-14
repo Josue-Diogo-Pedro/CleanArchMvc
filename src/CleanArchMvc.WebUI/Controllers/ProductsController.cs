@@ -50,4 +50,13 @@ public class ProductsController : Controller
 
         return View(product);
     }
+
+    [HttpPost]
+    public async Task<ActionResult> Edit(ProductDTO product)
+    {
+        if (!ModelState.IsValid) return View(product);
+
+        await _productService.UpdateAsync(product);
+        return RedirectToAction(nameof(Index));
+    }
 }
