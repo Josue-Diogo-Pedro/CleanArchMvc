@@ -1,4 +1,5 @@
-﻿using CleanArchMvc.Application.Services._Category;
+﻿using CleanArchMvc.Application.DTOs;
+using CleanArchMvc.Application.Services._Category;
 using CleanArchMvc.Application.Services._Product;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,4 +27,13 @@ public class ProductsController : Controller
         return View();
     }
 
+    [HttpPost]
+    public async Task<ActionResult> Create(ProductDTO product)
+    {
+        if (!ModelState.IsValid) return View(product);
+
+        await _productService.CreateAsync(product);
+
+        return RedirectToAction(nameof(Index));
+    }
 }
