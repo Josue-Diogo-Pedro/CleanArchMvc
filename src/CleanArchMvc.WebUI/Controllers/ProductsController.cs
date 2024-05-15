@@ -71,4 +71,11 @@ public class ProductsController : Controller
 
         return View(product);
     }
+
+    [HttpPost, ActionName("Delete")]
+    public async Task<ActionResult> DeleteConfirmed(int id)
+    {
+        await _productService.RemoveAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
 }
