@@ -34,8 +34,6 @@ public class AuthenticateService : IAuthenticate
 
         return result.Succeeded;
     }
-    public Task Logout()
-    {
-        throw new NotImplementedException();
-    }
+
+    public async Task Logout() => await _signInManager.SignOutAsync();
 }
