@@ -4,7 +4,9 @@ using CleanArchMvc.Application.Services._Category;
 using CleanArchMvc.Application.Services._Product;
 using CleanArchMvc.Domain.Interfaces;
 using CleanArchMvc.Infra.Data.Context;
+using CleanArchMvc.Infra.Data.Identity;
 using CleanArchMvc.Infra.Data.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +25,11 @@ public static class DependencyInjection
                                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
                                 );
         });
+
+        //Services for roles
+        services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
         //Automapper services register
         var mappingConfig = new MapperConfiguration(options =>
