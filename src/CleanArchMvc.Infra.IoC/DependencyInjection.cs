@@ -2,6 +2,7 @@
 using CleanArchMvc.Application.AutoMapper;
 using CleanArchMvc.Application.Services._Category;
 using CleanArchMvc.Application.Services._Product;
+using CleanArchMvc.Domain.Account;
 using CleanArchMvc.Domain.Interfaces;
 using CleanArchMvc.Infra.Data.Context;
 using CleanArchMvc.Infra.Data.Identity;
@@ -48,6 +49,8 @@ public static class DependencyInjection
         //Services "services" register (funny yes?! rsr)
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IAuthenticate, AuthenticateService>();
+        services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
         //Mediatr services register
         var myhandlers = AppDomain.CurrentDomain.Load("CleanArchMvc.Application");
