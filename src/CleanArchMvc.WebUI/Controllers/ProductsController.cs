@@ -10,11 +10,13 @@ public class ProductsController : Controller
 {
     private readonly IProductService _productService;
     private readonly ICategoryService _categoryService;
+    private readonly IWebHostEnvironment _environment;
 
-    public ProductsController(IProductService productService, ICategoryService categoryService)
+    public ProductsController(IProductService productService, ICategoryService categoryService, IWebHostEnvironment environment)
     {
         _productService = productService;
         _categoryService = categoryService;
+        _environment = environment;
     }
 
     [HttpGet]
@@ -77,5 +79,23 @@ public class ProductsController : Controller
     {
         await _productService.RemoveAsync(id);
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id is null) return NotFound();
+        
+        var product = await _productService.GetByIdAsync(id.Value);
+
+        if (product is null) return NotFound();
+
+        var wwwroot = _environment.WebRootPath;
+        var image = Path.Combine(wwwroot, "image\\" + product.Image);
+        var exists = System.IO.File.Exists(image);
+
+        ViewBag.ImageExists = exists;
+
+        return View(product);
     }
 }
