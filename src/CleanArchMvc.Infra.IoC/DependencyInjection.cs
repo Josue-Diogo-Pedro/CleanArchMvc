@@ -27,6 +27,10 @@ public static class DependencyInjection
                                 );
         });
 
+        //Services for Coockies
+        services.ConfigureApplicationCookie(options =>
+            options.AccessDeniedPath = "/Account/Login");
+
         //Services for roles
         services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
