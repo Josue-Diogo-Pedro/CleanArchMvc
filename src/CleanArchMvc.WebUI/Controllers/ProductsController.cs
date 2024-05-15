@@ -91,10 +91,10 @@ public class ProductsController : Controller
         if (product is null) return NotFound();
 
         var wwwroot = _environment.WebRootPath;
-        var image = Path.Combine(wwwroot, "image\\" + product.Image);
+        var image = Path.Combine(wwwroot, "images\\" + product.Image);
         var exists = System.IO.File.Exists(image);
 
-        ViewBag.ImageExists = exists;
+        ViewBag.ImageExist = exists;
 
         return View(product);
     }
