@@ -5,19 +5,13 @@ namespace CleanArchMvc.Infra.Data.Identity;
 
 public class SeedUserRoleInitial : ISeedUserRoleInitial
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public SeedUserRoleInitial(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+    public SeedUserRoleInitial(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
     {
+        _roleManager = roleManager;
         _userManager = userManager;
-        _signInManager = signInManager;
-    }
-
-    public void SeedRoles()
-    {
-
-        throw new NotImplementedException();
     }
 
     public void SeedUsers()
@@ -59,4 +53,26 @@ public class SeedUserRoleInitial : ISeedUserRoleInitial
             }
         }
     }
+
+    public void SeedRoles()
+    {
+
+        if (!_roleManager.RoleExistsAsync("User").Result)
+        {
+            IdentityRole role = new IdentityRole();
+            role.Name = "User";
+            role.NormalizedName = "USER";
+            IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+        }
+        if (!_roleManager.RoleExistsAsync("Admin").Result)
+        {
+            IdentityRole role = new IdentityRole();
+            role.Name = "Admin";
+            role.NormalizedName = "ADMIN";
+            IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+        }
+
+    }
 }
+
+
