@@ -20,9 +20,19 @@ public class AuthenticateService : IAuthenticate
         return result.Succeeded;
     }
 
-    public Task<bool> RegisterUser(string email, string password)
+    public async Task<bool> RegisterUser(string email, string password)
     {
-        throw new NotImplementedException();
+        ApplicationUser user = new()
+        {
+            UserName = email,
+            Email = email
+        };
+
+        var result = await _userManager.CreateAsync(user, password);
+
+        if (result.Succeeded) await _signInManager.SignInAsync(user, false);
+
+        return result.Succeeded;
     }
     public Task Logout()
     {
