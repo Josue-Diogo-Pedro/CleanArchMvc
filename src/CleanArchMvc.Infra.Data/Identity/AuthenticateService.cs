@@ -1,20 +1,30 @@
 ﻿using CleanArchMvc.Domain.Account;
+using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchMvc.Infra.Data.Identity;
 
 public class AuthenticateService : IAuthenticate
 {
-    public Task<bool> Authenticate(string email, string password)
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
+
+    public AuthenticateService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
     {
-        throw new NotImplementedException();
+        _userManager = userManager;
+        _signInManager = signInManager;
     }
 
-    public Task Logout()
+    public async Task<bool> Authenticate(string email, string password) 
     {
-        throw new NotImplementedException();
+        var result = await _signInManager.PasswordSignInAsync(email, password, false, lockoutOnFailure: false);
+        return result.Succeeded;
     }
 
     public Task<bool> RegisterUser(string email, string password)
+    {
+        throw new NotImplementedException();
+    }
+    public Task Logout()
     {
         throw new NotImplementedException();
     }
