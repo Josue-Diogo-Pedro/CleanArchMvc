@@ -45,4 +45,10 @@ public class AccountController : Controller
             return View(registerViewModel);
         }
     }
+
+    public async Task<ActionResult> Logout()
+    {
+        await _authenticate.Logout();
+        return Redirect("Account/Login");
+    }
 }
