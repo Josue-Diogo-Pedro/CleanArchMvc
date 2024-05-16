@@ -15,7 +15,7 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<ActionResult> Login(LoginViewModel loginViewModel)
     {
-        var result = await _authenticate.Authenticate(loginViewModel.Email ?? string.Empty, loginViewModel.Password ?? string.Empty);
+        var result = await _authenticate.Authenticate(loginViewModel.Email, loginViewModel.Password);
         if (result)
         {
             if(string.IsNullOrEmpty(loginViewModel.ReturnUrl)) return RedirectToAction("Index", "Home");
@@ -35,7 +35,7 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<ActionResult> Register(RegisterViewModel registerViewModel)
     {
-        var result = await _authenticate.RegisterUser(registerViewModel.Email??string.Empty, registerViewModel.Password??string.Empty);
+        var result = await _authenticate.RegisterUser(registerViewModel.Email, registerViewModel.Password);
 
         if (result) 
             return Redirect("/");

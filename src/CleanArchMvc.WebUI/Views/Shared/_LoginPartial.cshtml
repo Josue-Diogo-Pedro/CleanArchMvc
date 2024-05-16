@@ -6,6 +6,6 @@
 }
 else{
     <li class="nav-item">
-        <a class="nav-link text-capitalize" asp-controller="Account" asp-action="Login" style="color:blue">Login</a>
+        <a asp-route-returnUrl="@string.Format("{0}{1}", Context.Request.Path, Context.Request.QueryString)" class="nav-link text-capitalize" asp-controller="Account" asp-action="Login" style="color:blue">Login</a>
     </li>
 }

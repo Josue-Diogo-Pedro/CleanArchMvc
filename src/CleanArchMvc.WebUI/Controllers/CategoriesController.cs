@@ -49,6 +49,7 @@ public class CategoriesController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult> Delete(int? id)
     {
@@ -61,6 +62,7 @@ public class CategoriesController : Controller
         return View(category);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost, ActionName("Delete")]
     public async Task<ActionResult> DeleteConfirmed(int id)
     {
