@@ -12,5 +12,20 @@ public class AccountController : Controller
 
     public IActionResult Login(string returnUrl) => View(new LoginViewModel { ReturnUrl = returnUrl});
 
+    [HttpPost]
+    public async Task<ActionResult> Login(LoginViewModel loginViewModel)
+    {
+        var result = await _authenticate.Authenticate(loginViewModel.Emial ?? string.Empty, loginViewModel.Password ?? string.Empty);
+        if (result)
+        {
+            if(string.IsNullOrEmpty(loginViewModel.ReturnUrl)) return RedirectToAction("Index", "Home");
 
+            return Redirect(loginViewModel.ReturnUrl);
+        }
+        else
+        {
+            ModelState.AddModelError(string.Empty, "Invalid login attempt(password must be strong).");
+            return View(loginViewModel);
+        }
+    }
 }
