@@ -27,7 +27,7 @@ public class SeedUserRoleInitial : ISeedUserRoleInitial
             user.LockoutEnabled = false;
             user.SecurityStamp = Guid.NewGuid().ToString();
 
-            IdentityResult result = _userManager.CreateAsync(user, "Numsey#2021").Result;
+            IdentityResult result = _userManager.CreateAsync(user, "Numsey#2024").Result;
 
             if (result.Succeeded)
             {
@@ -45,7 +45,7 @@ public class SeedUserRoleInitial : ISeedUserRoleInitial
                 user.LockoutEnabled = false;
                 user.SecurityStamp = Guid.NewGuid().ToString();
 
-                IdentityResult resultado = _userManager.CreateAsync(userManager, "Numsey#2021").Result;
+                IdentityResult resultado = _userManager.CreateAsync(userManager, "Numsey#2024").Result;
 
                 if (resultado.Succeeded) _userManager.AddToRoleAsync(userManager, "Admin").Wait();
 
