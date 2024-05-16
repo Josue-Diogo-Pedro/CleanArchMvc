@@ -15,7 +15,7 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<ActionResult> Login(LoginViewModel loginViewModel)
     {
-        var result = await _authenticate.Authenticate(loginViewModel.Emial ?? string.Empty, loginViewModel.Password ?? string.Empty);
+        var result = await _authenticate.Authenticate(loginViewModel.Email ?? string.Empty, loginViewModel.Password ?? string.Empty);
         if (result)
         {
             if(string.IsNullOrEmpty(loginViewModel.ReturnUrl)) return RedirectToAction("Index", "Home");
