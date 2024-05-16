@@ -28,4 +28,9 @@ public class AccountController : Controller
             return View(loginViewModel);
         }
     }
+
+    [HttpGet]
+    public IActionResult Register() => View();
+
+
 }
