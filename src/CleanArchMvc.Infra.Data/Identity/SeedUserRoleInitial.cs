@@ -29,28 +29,26 @@ public class SeedUserRoleInitial : ISeedUserRoleInitial
 
             IdentityResult result = _userManager.CreateAsync(user, "Numsey#2024").Result;
 
-            if (result.Succeeded)
-            {
-                _userManager.AddToRoleAsync(user, "User").Wait();
-            }
+            if (result.Succeeded) _userManager.AddToRoleAsync(user, "User").Wait();
 
-            if (_userManager.FindByEmailAsync("admin@localhost").Result == null)
-            {
-                ApplicationUser userManager = new();
-                user.UserName = "admin@localhost";
-                user.Email = "admin@localhost";
-                user.NormalizedUserName = "ADMIN@LOCALHOST";
-                user.NormalizedEmail = "ADMIN@LOCALHOST";
-                user.EmailConfirmed = true;
-                user.LockoutEnabled = false;
-                user.SecurityStamp = Guid.NewGuid().ToString();
+        }
 
-                IdentityResult resultado = _userManager.CreateAsync(userManager, "Numsey#2024").Result;
+        if (_userManager.FindByEmailAsync("admin@localhost").Result == null)
+        {
+            ApplicationUser userManager = new();
+            userManager.UserName = "admin@localhost";
+            userManager.Email = "admin@localhost";
+            userManager.NormalizedUserName = "ADMIN@LOCALHOST";
+            userManager.NormalizedEmail = "ADMIN@LOCALHOST";
+            userManager.EmailConfirmed = true;
+            userManager.LockoutEnabled = false;
+            userManager.SecurityStamp = Guid.NewGuid().ToString();
 
-                if (resultado.Succeeded) _userManager.AddToRoleAsync(userManager, "Admin").Wait();
+            IdentityResult resultado = _userManager.CreateAsync(userManager, "Numsey#2024").Result;
+
+            if (resultado.Succeeded) _userManager.AddToRoleAsync(userManager, "Admin").Wait();
 
 
-            }
         }
     }
 
